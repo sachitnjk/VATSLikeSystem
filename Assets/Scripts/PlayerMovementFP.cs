@@ -10,7 +10,7 @@ public class PlayerMovementFP : MonoBehaviour
 	private PlayerInput playerInput;
 	private InputAction moveAction;
 
-	//private Animator playerAnimator;
+	private Animator playerAnimator;
 	private CharacterController playerCharController;
 
 	private Vector2 moveInput;
@@ -28,7 +28,7 @@ public class PlayerMovementFP : MonoBehaviour
 		}
 
 		playerCharController = GetComponent<CharacterController>();
-		//playerAnimator = GetComponentInChildren<Animator>();
+		playerAnimator = GetComponentInChildren<Animator>();
 	}
 
 	private void Update()
@@ -44,6 +44,14 @@ public class PlayerMovementFP : MonoBehaviour
 
 		playerCharController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
 
-		//Add animator functionality here if needed
+		if(moveDirection.magnitude > 0 ) 
+		{
+			playerAnimator.SetBool("isWalking", true);
+		}
+		else
+		{
+			playerAnimator.SetBool("isWalking", false);
+		}
+
 	}
 }
