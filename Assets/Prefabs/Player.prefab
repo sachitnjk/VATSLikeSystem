@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 5792757855307610264}
   - component: {fileID: 6517504139054567405}
   - component: {fileID: 3948455801684772531}
+  - component: {fileID: 7763114808875454387}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: Untagged
@@ -98,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3988617162040375566}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.751, z: 0.2}
+  m_LocalPosition: {x: 0, y: 1.751, z: 0.713}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -190,6 +191,21 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7763114808875454387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3988617162040375566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e6321b2661c359448dedb704f42846b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCharController: {fileID: 5441503565411841911}
+  camSensitivity: 0.5
+  camVerticalRotationClampAngle: 45
 --- !u!1 &5441503565411841905
 GameObject:
   m_ObjectHideFlags: 0
