@@ -801,6 +801,7 @@ GameObject:
   - component: {fileID: 1546535486}
   - component: {fileID: 1546535485}
   - component: {fileID: 1546535487}
+  - component: {fileID: 1546535488}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -877,6 +878,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981a377f2ff37874c8959cf380d96c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1546535488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546535483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae7602ff4a2aa144eb86c96dc2c634f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentlyEquipped: 2
+  weapons:
+  - {fileID: 11400000, guid: 3bdc75de3ec8a0e43b75971d211e1cb3, type: 2}
+  - {fileID: 11400000, guid: 4551ec5030a46cf48887807888e123d6, type: 2}
+  - {fileID: 11400000, guid: 9fe333f41a4590446949e3c21e04abb1, type: 2}
 --- !u!1001 &1606067390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -931,30 +949,6 @@ PrefabInstance:
     - target: {fileID: 631494008401289033, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1448959519354238783, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
-      propertyPath: m_Size.x
-      value: 0.4767642
-      objectReference: {fileID: 0}
-    - target: {fileID: 1448959519354238783, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
-      propertyPath: m_Size.y
-      value: 1.8553581
-      objectReference: {fileID: 0}
-    - target: {fileID: 1448959519354238783, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
-      propertyPath: m_Size.z
-      value: 0.33975983
-      objectReference: {fileID: 0}
-    - target: {fileID: 1448959519354238783, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
-      propertyPath: m_Center.x
-      value: -0.0025398731
-      objectReference: {fileID: 0}
-    - target: {fileID: 1448959519354238783, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
-      propertyPath: m_Center.y
-      value: 0.92865217
-      objectReference: {fileID: 0}
-    - target: {fileID: 1448959519354238783, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
-      propertyPath: m_Center.z
-      value: -0.0063614845
       objectReference: {fileID: 0}
     - target: {fileID: 5457341701303546465, guid: 890e6bd8e5777bc49b11a0d96665a15a, type: 3}
       propertyPath: m_Enabled

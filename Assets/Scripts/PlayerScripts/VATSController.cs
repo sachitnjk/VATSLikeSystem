@@ -14,6 +14,7 @@ public class VATSController : MonoBehaviour
 	private List<Collider> entityColliders;
 
 	private float originalTimeScale;
+	private float vatsDistance;
 
 	private void Start()
 	{
@@ -36,6 +37,7 @@ public class VATSController : MonoBehaviour
 		}
 		if(GameManager.Instance.vatsStatus)
 		{
+			VATSDistanceCalculation();
 			EntityDetection();
 		}
 	}
@@ -64,20 +66,25 @@ public class VATSController : MonoBehaviour
 
 		Ray ray = playerCam.ScreenPointToRay(mosPosition);
 
-		if(Physics.Raycast(ray, out hit, Mathf.Infinity)) 
+		if(Physics.Raycast(ray, out hit, vatsDistance)) 
 		{
 			ColliderController entityColliderScript = hit.transform.gameObject.GetComponent<ColliderController>();
 			Debug.Log(hit.collider.gameObject.name);
-			if(entityColliderScript != null) 
+			if (entityColliderScript != null)
 			{
 				entityColliders = entityColliderScript.GetCollidersList();
 
-				foreach(Collider collider in entityColliders) 
+				foreach (Collider collider in entityColliders)
 				{
-					Debug.Log(collider.name);
+					//Debug.Log(collider.name);
 				}
 
 			}
 		}
+	}
+
+	private void VATSDistanceCalculation()
+	{
+		vatsDistance = Inventory.Instance.GetCurrentWeaponReach();
 	}
 }
