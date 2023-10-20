@@ -30,7 +30,6 @@ public class PlayerCameraFP : MonoBehaviour
 			lookAction = playerInput.actions["Look"];
 		}
 
-		//Temporary magic number will update soon
 		camSensitivity /= 10;
 
 		minVerticalCamRotation = -camVerticalRotationClampAngle;
