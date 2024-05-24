@@ -11,7 +11,8 @@ public class VATSController : MonoBehaviour
 
 	private Camera playerCam;
 
-	private List<Collider> entityColliders;
+	private Collider previousSelectedCollider;
+	private Collider currentSelectedCollider;
 
 	private float originalTimeScale;
 	private float vatsDistance;
@@ -69,16 +70,15 @@ public class VATSController : MonoBehaviour
 		if(Physics.Raycast(ray, out hit, vatsDistance)) 
 		{
 			ColliderController entityColliderScript = hit.transform.gameObject.GetComponent<ColliderController>();
-			Debug.Log(hit.collider.gameObject.name);
+			//Debug.Log(hit.collider.gameObject.name);
 			if (entityColliderScript != null)
 			{
-				entityColliders = entityColliderScript.GetCollidersList();
+				Debug.Log(entityColliderScript.gameObject.name);
+				entityColliderScript.SetVATSColliderStatus(true);
 
-				foreach (Collider collider in entityColliders)
-				{
-					//Debug.Log(collider.name);
-				}
-
+				//entityColliderScript.UpdateVATSDisplay();
+				float visibilityScore = CalculateVisibilityScore(entityColliderScript);
+				entityColliderScript.UpdateVATSDisplay(visibilityScore);
 			}
 		}
 	}
@@ -86,5 +86,28 @@ public class VATSController : MonoBehaviour
 	private void VATSDistanceCalculation()
 	{
 		vatsDistance = Inventory.Instance.GetCurrentWeaponReach();
+	}
+
+	private float CalculateVisibilityScore(ColliderController entityColliderScript)
+	{
+		float maxDistance = vatsDistance;
+		float currentDistance = Vector3.Distance(playerCam.transform.position, entityColliderScript.transform.position);
+
+		//Obstacle Checking
+		RaycastHit hit;
+		float obstaclePenalty = 0f;
+
+		Vector3 direction = (entityColliderScript.transform.position - playerCam.transform.position).normalized;
+
+		if(Physics.Raycast(playerCam.transform.position, direction, out hit, maxDistance))
+		{
+			if(hit.collider != GetComponent<ColliderController>())
+			{
+				obstaclePenalty = 0.5f;
+			}
+		}
+
+		float visibilityScore = Mathf.Clamp01((maxDistance - currentDistance) / maxDistance - obstaclePenalty);
+		return visibilityScore * 100;
 	}
 }
