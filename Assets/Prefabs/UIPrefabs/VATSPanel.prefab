@@ -75,8 +75,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278779898
+  m_fontColor: {r: 0.9816395, g: 1, b: 0.033018887, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -146,7 +146,6 @@ GameObject:
   - component: {fileID: 153606575402247108}
   - component: {fileID: 1729341176579268743}
   - component: {fileID: 2915783739343682657}
-  - component: {fileID: 7823396480478127619}
   - component: {fileID: 4927086420726106695}
   m_Layer: 5
   m_Name: VATSPanel
@@ -197,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.16100036, g: 0.509434, b: 0.31943503, a: 0.25490198}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -214,18 +213,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7823396480478127619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540295312556910408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee258d4f5d32efe47a3e22625bd24f32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4927086420726106695
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class VATSController : MonoBehaviour
 	private Camera playerCam;
 	[SerializeField] private Transform vCamOriginalParent;
 	[SerializeField] private GameObject primaryVCam;
+	[SerializeField] private GameObject secondaryVCam;
 
 	private Collider previousSelectedCollider;
 	private Collider currentSelectedCollider;
@@ -80,12 +81,16 @@ public class VATSController : MonoBehaviour
 			ColliderController entityColliderScript = hit.transform.gameObject.GetComponent<ColliderController>();
 			if(entityColliderScript != null)
 			{
+
 				float distance = Vector3.Distance(playerCam.transform.position, hit.transform.position);
 				if(distance < closestDistance)
 				{
 					closestDistance = distance;
 					closestEntityScript = entityColliderScript;
 				}
+
+				secondaryVCam.transform.position = closestEntityScript.GetVATSCamTransform().position;
+				secondaryVCam.transform.rotation = closestEntityScript.GetVATSCamTransform().rotation;
 			}
 		}
 
@@ -101,6 +106,9 @@ public class VATSController : MonoBehaviour
 	{
 		if(closestEntityScript != null)
 		{
+			secondaryVCam.transform.position = primaryVCam.transform.position;
+			secondaryVCam.transform.rotation = primaryVCam.transform.rotation;
+
 			closestEntityScript.SetVATSColliderStatus(false);
 			primaryVCam.SetActive(true);
 		}
