@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ColliderController : MonoBehaviour
 {
-	//[SerializeField] private List<Collider> partColliders;
+	[SerializeField] private Transform vatsCamTransform;
 	[SerializeField] private List<ColliderToCanvas> colliderToCanvasList;
 
 	private List<Collider> partColliders;
@@ -31,14 +31,6 @@ public class ColliderController : MonoBehaviour
 		}
 	}
 
-	private void Update()
-	{
-		if (!GameManager.Instance.vatsStatus)
-		{
-			SetVATSColliderStatus(false);
-		}
-	}
-
 	public void SetVATSColliderStatus(bool status)
 	{
 		mainCollider.enabled = !status;
@@ -58,6 +50,14 @@ public class ColliderController : MonoBehaviour
 		}
 	}
 
+	public Transform GetVATSCamTransform()
+	{
+		if(vatsCamTransform != null)
+		{
+			return vatsCamTransform.transform;
+		}
+		return null;
+	}
 	public List<Collider> GetCollidersList()
 	{
 		return partColliders;

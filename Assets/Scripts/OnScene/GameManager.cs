@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void SetVatsStatus(bool currentStatus)
-	{
-		vatsStatus = currentStatus;
-	}
+	//public void SetVatsStatus(bool currentStatus)
+	//{
+	//	vatsStatus = currentStatus;
+	//}
 }

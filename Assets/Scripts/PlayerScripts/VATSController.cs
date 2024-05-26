@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,15 @@ public class VATSController : MonoBehaviour
 	private InputAction lookAction;
 
 	private Camera playerCam;
+	[SerializeField] private Transform vCamOriginalParent;
+	[SerializeField] private GameObject primaryVCam;
 
 	private Collider previousSelectedCollider;
 	private Collider currentSelectedCollider;
 
+	private ColliderController closestEntityScript;
+
+	private float accuracyToEntity;
 	private float originalTimeScale;
 	private float vatsDistance;
 
@@ -35,11 +41,10 @@ public class VATSController : MonoBehaviour
 		if(vatsAction.triggered)
 		{
 			ToggleVATS();
-		}
-		if(GameManager.Instance.vatsStatus)
-		{
-			VATSDistanceCalculation();
-			EntityDetection();
+			if(closestEntityScript != null) 
+			{
+				closestEntityScript.UpdateVATSDisplay(accuracyToEntity);
+			}
 		}
 	}
 
@@ -47,67 +52,62 @@ public class VATSController : MonoBehaviour
 	{
 		if(Time.timeScale > 0.1f) 
 		{
-			GameManager.Instance.SetVatsStatus(true);
+			VATSDistanceCalculation();
+			ActivateVATS();
 			Cursor.lockState = CursorLockMode.Confined;
 			Time.timeScale = 0.1f;
 		}
 		else
 		{
+			DeactivateVATS();
 			Cursor.lockState= CursorLockMode.Locked;
-			GameManager.Instance.SetVatsStatus(false);
 			Time.timeScale = originalTimeScale;
 		}
 	}
 
-	private void EntityDetection()
+	private void ActivateVATS()
 	{
-		RaycastHit hit;
+		Vector3 mousePosition = Mouse.current.position.ReadValue();
+		Ray ray = playerCam.ScreenPointToRay(mousePosition);
 
-		Vector3 mosPosition = Mouse.current.position.ReadValue();
+		RaycastHit[] hits = Physics.SphereCastAll(ray, vatsDistance, vatsDistance);
 
-		Ray ray = playerCam.ScreenPointToRay(mosPosition);
+		closestEntityScript = null;
+		float closestDistance = Mathf.Infinity;
 
-		if(Physics.Raycast(ray, out hit, vatsDistance)) 
+		foreach(RaycastHit hit in hits) 
 		{
 			ColliderController entityColliderScript = hit.transform.gameObject.GetComponent<ColliderController>();
-			//Debug.Log(hit.collider.gameObject.name);
-			if (entityColliderScript != null)
+			if(entityColliderScript != null)
 			{
-				Debug.Log(entityColliderScript.gameObject.name);
-				entityColliderScript.SetVATSColliderStatus(true);
-
-				//entityColliderScript.UpdateVATSDisplay();
-				float visibilityScore = CalculateVisibilityScore(entityColliderScript);
-				entityColliderScript.UpdateVATSDisplay(visibilityScore);
+				float distance = Vector3.Distance(playerCam.transform.position, hit.transform.position);
+				if(distance < closestDistance)
+				{
+					closestDistance = distance;
+					closestEntityScript = entityColliderScript;
+				}
 			}
+		}
+
+		if(closestEntityScript != null ) 
+		{
+			closestEntityScript.SetVATSColliderStatus(true);
+			primaryVCam.SetActive(false);
+		}
+
+	}
+
+	private void DeactivateVATS()
+	{
+		if(closestEntityScript != null)
+		{
+			closestEntityScript.SetVATSColliderStatus(false);
+			primaryVCam.SetActive(true);
 		}
 	}
 
 	private void VATSDistanceCalculation()
 	{
 		vatsDistance = Inventory.Instance.GetCurrentWeaponReach();
-	}
-
-	private float CalculateVisibilityScore(ColliderController entityColliderScript)
-	{
-		float maxDistance = vatsDistance;
-		float currentDistance = Vector3.Distance(playerCam.transform.position, entityColliderScript.transform.position);
-
-		//Obstacle Checking
-		RaycastHit hit;
-		float obstaclePenalty = 0f;
-
-		Vector3 direction = (entityColliderScript.transform.position - playerCam.transform.position).normalized;
-
-		if(Physics.Raycast(playerCam.transform.position, direction, out hit, maxDistance))
-		{
-			if(hit.collider != GetComponent<ColliderController>())
-			{
-				obstaclePenalty = 0.5f;
-			}
-		}
-
-		float visibilityScore = Mathf.Clamp01((maxDistance - currentDistance) / maxDistance - obstaclePenalty);
-		return visibilityScore * 100;
 	}
 }

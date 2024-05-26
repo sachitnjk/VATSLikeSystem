@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 3948455801684772531}
   m_Layer: 0
   m_Name: PlayerCam
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,8 +191,8 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
+    m_Style: 3
+    m_Time: 0.1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -286,6 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795dd0e7d383b484dbb08c792b4d1df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vCamOriginalParent: {fileID: 5105063933403175839}
+  primaryVCam: {fileID: 1014803825134991634}
 --- !u!1 &8957932899767120234
 GameObject:
   m_ObjectHideFlags: 0
