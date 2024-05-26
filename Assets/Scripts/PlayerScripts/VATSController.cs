@@ -41,10 +41,10 @@ public class VATSController : MonoBehaviour
 		if(vatsAction.triggered)
 		{
 			ToggleVATS();
-			if(closestEntityScript != null) 
-			{
-				closestEntityScript.UpdateVATSDisplay(accuracyToEntity);
-			}
+			//if(closestEntityScript != null) 
+			//{
+			//	closestEntityScript.UpdateVATSDisplay(accuracyToEntity);
+			//}
 		}
 	}
 

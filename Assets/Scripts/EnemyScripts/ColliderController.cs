@@ -15,7 +15,7 @@ public class ColliderController : MonoBehaviour
 	public struct ColliderToCanvas
 	{
 		public Collider partCollider;
-		public Canvas partVATSCanvas;
+		public Transform partVATSCanvas;
 		public TextMeshProUGUI vatsTextBox;
 	}
 
@@ -25,7 +25,7 @@ public class ColliderController : MonoBehaviour
 		SetVATSColliderStatus(false);
 
 		partColliders = new List<Collider>();
-		foreach(ColliderToCanvas colliderToCanvas in colliderToCanvasList) 
+		foreach (ColliderToCanvas colliderToCanvas in colliderToCanvasList)
 		{
 			partColliders.Add(colliderToCanvas.partCollider);
 		}
@@ -37,18 +37,18 @@ public class ColliderController : MonoBehaviour
 		foreach (ColliderToCanvas colliderToCanvas in colliderToCanvasList) 
 		{
 			colliderToCanvas.partCollider.enabled = status;
-			colliderToCanvas.partVATSCanvas.enabled = status;
+			colliderToCanvas.partVATSCanvas.gameObject.SetActive(status);
 		}
 	}
 
-	public void UpdateVATSDisplay(float vatsAccuracy)
-	{
-		foreach(ColliderToCanvas colliderToCanvas in colliderToCanvasList)
-		{
-			colliderToCanvas.vatsTextBox.text = vatsAccuracy.ToString("F2");
-			Debug.Log(colliderToCanvas.vatsTextBox.text.ToString());
-		}
-	}
+	//public void UpdateVATSDisplay(float vatsAccuracy)
+	//{
+	//	foreach(ColliderToCanvas colliderToCanvas in colliderToCanvasList)
+	//	{
+	//		colliderToCanvas.vatsTextBox.text = vatsAccuracy.ToString("F2");
+	//		Debug.Log(colliderToCanvas.vatsTextBox.text.ToString());
+	//	}
+	//}
 
 	public Transform GetVATSCamTransform()
 	{
