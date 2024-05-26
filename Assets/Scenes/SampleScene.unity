@@ -192,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 26e0e12239fde8b4db3f6f8c7b7df52d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -309,7 +309,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 70f0f4f911091d54dbe3660ced8745e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -503,7 +503,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 70f0f4f911091d54dbe3660ced8745e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -696,7 +696,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1c362a9b2db958649be433488d7326c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -741,11 +741,6 @@ Transform:
   m_Father: {fileID: 1724910489}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &812389687 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5105063933403175839, guid: 30ee80ff116af3a44a3bcffd09738c8d, type: 3}
-  m_PrefabInstance: {fileID: 837219506}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &817454989
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,10 +782,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2070312825138315169, guid: 30ee80ff116af3a44a3bcffd09738c8d, type: 3}
-      propertyPath: vCamOriginalParent
-      value: 
-      objectReference: {fileID: 812389687}
     - target: {fileID: 3988617162040375566, guid: 30ee80ff116af3a44a3bcffd09738c8d, type: 3}
       propertyPath: m_TagString
       value: MainCamera
@@ -801,7 +792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5441503565411841904, guid: 30ee80ff116af3a44a3bcffd09738c8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.32
       objectReference: {fileID: 0}
     - target: {fileID: 5441503565411841904, guid: 30ee80ff116af3a44a3bcffd09738c8d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -958,7 +949,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 70f0f4f911091d54dbe3660ced8745e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1505,7 +1496,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 870fae519a32cf140aa0907c072be95b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
