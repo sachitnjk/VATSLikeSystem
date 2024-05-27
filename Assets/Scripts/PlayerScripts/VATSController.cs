@@ -109,6 +109,7 @@ public class VATSController : MonoBehaviour
 
 		if(closestEntityScript != null ) 
 		{
+			closestEntityScript.ShowHealthBar();
 			closestEntityScript.SetVATSColliderStatus(true);
 			primaryVCam.SetActive(false);
 		}
@@ -132,6 +133,7 @@ public class VATSController : MonoBehaviour
 			secondaryVCam.transform.position = primaryVCam.transform.position;
 			secondaryVCam.transform.rotation = primaryVCam.transform.rotation;
 
+			closestEntityScript.HideHealthBar();
 			closestEntityScript.SetVATSColliderStatus(false);
 			primaryVCam.SetActive(true);
 		}

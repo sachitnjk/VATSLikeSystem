@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ColliderController : MonoBehaviour
 {
+	[SerializeField] private HealthController healthController;
 	[SerializeField] private Transform vatsCamTransform;
 	[SerializeField] private List<ColliderToCanvas> colliderToCanvasList;
 
@@ -23,6 +24,11 @@ public class ColliderController : MonoBehaviour
 	{
 		mainCollider = GetComponent<Collider>();
 		SetVATSColliderStatus(false);
+
+		if(healthController != null) 
+		{
+			HideHealthBar();
+		}
 
 		partColliders = new List<Collider>();
 		foreach (ColliderToCanvas colliderToCanvas in colliderToCanvasList)
@@ -49,6 +55,16 @@ public class ColliderController : MonoBehaviour
 	//		Debug.Log(colliderToCanvas.vatsTextBox.text.ToString());
 	//	}
 	//}
+
+	public void ShowHealthBar()
+	{
+		healthController.healthSlider.gameObject.SetActive(true);
+	}
+
+	public void HideHealthBar()
+	{
+		healthController.healthSlider.gameObject.SetActive(false);
+	}
 
 	public Transform GetVATSCamTransform()
 	{
