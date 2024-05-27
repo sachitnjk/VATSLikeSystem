@@ -83,21 +83,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthController: {fileID: 6495349169136457522}
   vatsCamTransform: {fileID: 8884049677868797652}
-  colliderToCanvasList:
+  colliderToPanelList:
   - partCollider: {fileID: 5457341701303546465}
-    partVATSCanvas: {fileID: 7611967762124106809}
+    partVATSPanel: {fileID: 7611967762124106809}
     vatsTextBox: {fileID: 0}
   - partCollider: {fileID: 6777446633538717041}
-    partVATSCanvas: {fileID: 3088295306934115571}
+    partVATSPanel: {fileID: 3088295306934115571}
     vatsTextBox: {fileID: 0}
   - partCollider: {fileID: 1977945753058897825}
-    partVATSCanvas: {fileID: 8592796960474274513}
+    partVATSPanel: {fileID: 8592796960474274513}
     vatsTextBox: {fileID: 0}
   - partCollider: {fileID: 8632433539524171148}
-    partVATSCanvas: {fileID: 4139577114648339567}
+    partVATSPanel: {fileID: 4139577114648339567}
     vatsTextBox: {fileID: 0}
   - partCollider: {fileID: 4448691488902841410}
-    partVATSCanvas: {fileID: 244277441068569922}
+    partVATSPanel: {fileID: 244277441068569922}
     vatsTextBox: {fileID: 0}
 --- !u!114 &4909145082034660430
 MonoBehaviour:
@@ -848,6 +848,10 @@ PrefabInstance:
     - target: {fileID: 1011696413422884005, guid: 7c43bb102c431d74db6e2a931a292431, type: 3}
       propertyPath: m_Name
       value: PlayerModel_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011696413422884005, guid: 7c43bb102c431d74db6e2a931a292431, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1766171255721737157, guid: 7c43bb102c431d74db6e2a931a292431, type: 3}
       propertyPath: m_Materials.Array.data[0]

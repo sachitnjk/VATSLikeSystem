@@ -134,6 +134,7 @@ public class VATSController : MonoBehaviour
 			secondaryVCam.transform.rotation = primaryVCam.transform.rotation;
 
 			closestEntityScript.HideHealthBar();
+			closestEntityScript.CleanUpVatsUi();
 			closestEntityScript.SetVATSColliderStatus(false);
 			primaryVCam.SetActive(true);
 		}
@@ -162,6 +163,7 @@ public class VATSController : MonoBehaviour
 					{
 						if(shootAction.WasPerformedThisFrame())
 						{
+							closestEntityScript.SelectVATSOnPart(clickedCollider);
 							Debug.Log(clickedCollider.gameObject.name);
 						}
 					}

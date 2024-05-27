@@ -7,16 +7,16 @@ public class ColliderController : MonoBehaviour
 {
 	[SerializeField] private HealthController healthController;
 	[SerializeField] private Transform vatsCamTransform;
-	[SerializeField] private List<ColliderToCanvas> colliderToCanvasList;
+	[SerializeField] private List<ColliderToPanel> colliderToPanelList;
 
 	private List<Collider> partColliders;
 	private Collider mainCollider;
 
 	[System.Serializable]
-	public struct ColliderToCanvas
+	public struct ColliderToPanel
 	{
 		public Collider partCollider;
-		public Transform partVATSCanvas;
+		public Transform partVATSPanel;
 		public TextMeshProUGUI vatsTextBox;
 	}
 
@@ -31,7 +31,7 @@ public class ColliderController : MonoBehaviour
 		}
 
 		partColliders = new List<Collider>();
-		foreach (ColliderToCanvas colliderToCanvas in colliderToCanvasList)
+		foreach (ColliderToPanel colliderToCanvas in colliderToPanelList)
 		{
 			partColliders.Add(colliderToCanvas.partCollider);
 		}
@@ -40,10 +40,10 @@ public class ColliderController : MonoBehaviour
 	public void SetVATSColliderStatus(bool status)
 	{
 		mainCollider.enabled = !status;
-		foreach (ColliderToCanvas colliderToCanvas in colliderToCanvasList) 
+		foreach (ColliderToPanel colliderToPanel in colliderToPanelList) 
 		{
-			colliderToCanvas.partCollider.enabled = status;
-			colliderToCanvas.partVATSCanvas.gameObject.SetActive(status);
+			colliderToPanel.partCollider.enabled = status;
+			colliderToPanel.partVATSPanel.gameObject.SetActive(status);
 		}
 	}
 
@@ -64,6 +64,30 @@ public class ColliderController : MonoBehaviour
 	public void HideHealthBar()
 	{
 		healthController.healthSlider.gameObject.SetActive(false);
+	}
+
+	public void CleanUpVatsUi()
+	{
+		foreach(ColliderToPanel colliderToPanel in colliderToPanelList)
+		{
+			UIPanelPos uiPanelPosScript = colliderToPanel.partVATSPanel.GetComponent<UIPanelPos>();
+			uiPanelPosScript.ResetVATSPartsUI();
+		}
+	}
+
+	public void SelectVATSOnPart(Collider selectedCollider)
+	{
+		foreach(ColliderToPanel colliderToPanel in colliderToPanelList)
+		{
+			if(selectedCollider == colliderToPanel.partCollider)
+			{
+				UIPanelPos uiPanelScript = colliderToPanel.partVATSPanel.GetComponent<UIPanelPos>();
+				if(uiPanelScript != null)
+				{
+					uiPanelScript.SelectVATSPartUI();
+				}
+			}
+		}
 	}
 
 	public Transform GetVATSCamTransform()
