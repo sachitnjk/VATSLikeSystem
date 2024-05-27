@@ -13,6 +13,8 @@ public class PlayerMovementFP : MonoBehaviour
 	private Animator playerAnimator;
 	private CharacterController playerCharController;
 
+	private bool movementLockStatus = false;
+
 	private Vector2 moveInput;
 	private Vector3 moveDirection;
 
@@ -33,7 +35,10 @@ public class PlayerMovementFP : MonoBehaviour
 
 	private void Update()
 	{
-		Move();
+		if(!movementLockStatus)
+		{
+			Move();
+		}
 	}
 
 	private void Move()
@@ -53,5 +58,10 @@ public class PlayerMovementFP : MonoBehaviour
 			playerAnimator.SetBool("isWalking", false);
 		}
 
+	}
+
+	public void MovementLock(bool lockStatus)
+	{
+		movementLockStatus = lockStatus;
 	}
 }

@@ -8,28 +8,30 @@ public class VATSController : MonoBehaviour
 {
 	private PlayerInput playerInput;
 	private InputAction vatsAction;
-	private InputAction lookAction;
+	private InputAction shootAction;
 
 	private Camera playerCam;
 	[SerializeField] private Transform vCamOriginalParent;
 	[SerializeField] private GameObject primaryVCam;
 	[SerializeField] private GameObject secondaryVCam;
 
-	private Collider previousSelectedCollider;
-	private Collider currentSelectedCollider;
-
+	private PlayerMovementFP playerMoveScript;
 	private ColliderController closestEntityScript;
 
-	private float accuracyToEntity;
+	private bool isVATSActive = false;
 	private float originalTimeScale;
 	private float vatsDistance;
 
 	private void Start()
 	{
 		playerInput = InputProvider.GetPlayerInput();
-		vatsAction = playerInput.actions["VATSMode"];
-		lookAction = playerInput.actions["Look"];
+		if(playerInput != null )
+		{
+			vatsAction = playerInput.actions["VATSMode"];
+			shootAction = playerInput.actions["Shoot"];
+		}
 
+		playerMoveScript = this.gameObject.GetComponent<PlayerMovementFP>();
 		playerCam = GetComponentInChildren<Camera>();
 
 		originalTimeScale = Time.timeScale;
@@ -42,10 +44,11 @@ public class VATSController : MonoBehaviour
 		if(vatsAction.triggered)
 		{
 			ToggleVATS();
-			//if(closestEntityScript != null) 
-			//{
-			//	closestEntityScript.UpdateVATSDisplay(accuracyToEntity);
-			//}
+		}
+
+		if(isVATSActive)
+		{
+			CheckSelectedVATSPart();
 		}
 	}
 
@@ -68,6 +71,16 @@ public class VATSController : MonoBehaviour
 
 	private void ActivateVATS()
 	{
+		if (playerMoveScript != null)
+		{
+			playerMoveScript.MovementLock(true);
+		}
+
+		if(!isVATSActive)
+		{
+			isVATSActive = true;
+		}
+
 		Vector3 mousePosition = Mouse.current.position.ReadValue();
 		Ray ray = playerCam.ScreenPointToRay(mousePosition);
 
@@ -104,7 +117,17 @@ public class VATSController : MonoBehaviour
 
 	private void DeactivateVATS()
 	{
-		if(closestEntityScript != null)
+		if (playerMoveScript != null)
+		{
+			playerMoveScript.MovementLock(false);
+		}
+
+		if (isVATSActive)
+		{
+			isVATSActive = false;
+		}
+
+		if (closestEntityScript != null)
 		{
 			secondaryVCam.transform.position = primaryVCam.transform.position;
 			secondaryVCam.transform.rotation = primaryVCam.transform.rotation;
@@ -117,5 +140,31 @@ public class VATSController : MonoBehaviour
 	private void VATSDistanceCalculation()
 	{
 		vatsDistance = Inventory.Instance.GetCurrentWeaponReach();
+	}
+
+	private void CheckSelectedVATSPart()
+	{
+		if(closestEntityScript != null)
+		{
+			Vector3 mousePosition = Mouse.current.position.ReadValue();
+			Ray ray = playerCam.ScreenPointToRay(mousePosition);
+
+			if(Physics.Raycast(ray, out RaycastHit hit))
+			{
+				Collider clickedCollider = hit.collider;
+				List<Collider> entityPartColliders = closestEntityScript.GetCollidersList();
+
+				foreach(Collider collider in entityPartColliders)
+				{
+					if(clickedCollider == collider)
+					{
+						if(shootAction.WasPerformedThisFrame())
+						{
+							Debug.Log(clickedCollider.gameObject.name);
+						}
+					}
+				}
+			}
+		}
 	}
 }
