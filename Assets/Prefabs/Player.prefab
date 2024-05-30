@@ -437,6 +437,7 @@ MonoBehaviour:
   vCamOriginalParent: {fileID: 5105063933403175839}
   primaryVCam: {fileID: 1014803825134991634}
   secondaryVCam: {fileID: 5113419879655015031}
+  slowTimeScale: 0.05
 --- !u!1 &8619210154354794250
 GameObject:
   m_ObjectHideFlags: 0

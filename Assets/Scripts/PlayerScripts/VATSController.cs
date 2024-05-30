@@ -9,18 +9,29 @@ public class VATSController : MonoBehaviour
 	private PlayerInput playerInput;
 	private InputAction vatsAction;
 	private InputAction shootAction;
+	private InputAction switchTargetAction;
 
-	private Camera playerCam;
+	[Header("Serialized Object references")]
 	[SerializeField] private Transform vCamOriginalParent;
 	[SerializeField] private GameObject primaryVCam;
 	[SerializeField] private GameObject secondaryVCam;
 
+	[Header("Serialized Values")]
+	[SerializeField] [Range(0.5f, 0.01f)] private float slowTimeScale;
+
+	private Camera playerCam;
 	private PlayerMovementFP playerMoveScript;
 	private ColliderController closestEntityScript;
 
 	private bool isVATSActive = false;
 	private float originalTimeScale;
 	private float vatsDistance;
+	private List<ColliderController> detectedEntityCollidersList;
+
+	private void Awake()
+	{
+		detectedEntityCollidersList = new List<ColliderController>();
+	}
 
 	private void Start()
 	{
@@ -29,6 +40,7 @@ public class VATSController : MonoBehaviour
 		{
 			vatsAction = playerInput.actions["VATSMode"];
 			shootAction = playerInput.actions["Shoot"];
+			switchTargetAction = playerInput.actions["DebugTwo"];
 		}
 
 		playerMoveScript = this.gameObject.GetComponent<PlayerMovementFP>();
@@ -50,16 +62,24 @@ public class VATSController : MonoBehaviour
 		{
 			CheckSelectedVATSPart();
 		}
+
+		if( isVATSActive && switchTargetAction.triggered)
+		{
+			if(closestEntityScript != null)
+			{
+				CycleVATSTargetEntity();
+			}
+		}
 	}
 
 	private void ToggleVATS()
 	{
-		if(Time.timeScale > 0.1f) 
+		if(Time.timeScale > slowTimeScale) 
 		{
 			VATSDistanceCalculation();
 			ActivateVATS();
 			Cursor.lockState = CursorLockMode.Confined;
-			Time.timeScale = 0.1f;
+			Time.timeScale = slowTimeScale;
 		}
 		else
 		{
@@ -94,6 +114,7 @@ public class VATSController : MonoBehaviour
 			ColliderController entityColliderScript = hit.transform.gameObject.GetComponent<ColliderController>();
 			if(entityColliderScript != null)
 			{
+				detectedEntityCollidersList.Add(entityColliderScript);
 
 				float distance = Vector3.Distance(playerCam.transform.position, hit.transform.position);
 				if(distance < closestDistance)
@@ -126,6 +147,11 @@ public class VATSController : MonoBehaviour
 		if (isVATSActive)
 		{
 			isVATSActive = false;
+		}
+
+		if(detectedEntityCollidersList != null)
+		{
+			detectedEntityCollidersList.Clear();
 		}
 
 		if (closestEntityScript != null)
@@ -164,11 +190,30 @@ public class VATSController : MonoBehaviour
 						if(shootAction.WasPerformedThisFrame())
 						{
 							closestEntityScript.SelectVATSOnPart(clickedCollider);
-							Debug.Log(clickedCollider.gameObject.name);
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private void CycleVATSTargetEntity()
+	{
+		int currentIndex = detectedEntityCollidersList.IndexOf(closestEntityScript);
+		int nextIndex = (currentIndex + 1) % detectedEntityCollidersList.Count;
+
+
+		closestEntityScript.HideHealthBar();
+		closestEntityScript.CleanUpVatsUi();
+		closestEntityScript.SetVATSColliderStatus(false);
+
+		//Setting new updated closest entity 
+		closestEntityScript = detectedEntityCollidersList[nextIndex];
+		closestEntityScript.ShowHealthBar();
+		closestEntityScript.SetVATSColliderStatus(true);
+
+		//current closest entity cleanUp
+		secondaryVCam.transform.position = closestEntityScript.GetVATSCamTransform().position;
+		secondaryVCam.transform.rotation = closestEntityScript.GetVATSCamTransform().rotation;
 	}
 }
