@@ -9,7 +9,8 @@ public class VATSController : MonoBehaviour
 	private PlayerInput playerInput;
 	private InputAction vatsAction;
 	private InputAction shootAction;
-	private InputAction switchTargetAction;
+	private InputAction switchTargetRightAction;
+	private InputAction switchTargetLeftAction;
 
 	[Header("Serialized Object references")]
 	[SerializeField] private Transform vCamOriginalParent;
@@ -40,7 +41,8 @@ public class VATSController : MonoBehaviour
 		{
 			vatsAction = playerInput.actions["VATSMode"];
 			shootAction = playerInput.actions["Shoot"];
-			switchTargetAction = playerInput.actions["DebugTwo"];
+			switchTargetRightAction = playerInput.actions["SVT_Right"];
+			switchTargetLeftAction = playerInput.actions["SVT_Left"];
 		}
 
 		playerMoveScript = this.gameObject.GetComponent<PlayerMovementFP>();
@@ -63,11 +65,15 @@ public class VATSController : MonoBehaviour
 			CheckSelectedVATSPart();
 		}
 
-		if( isVATSActive && switchTargetAction.triggered)
+		if( isVATSActive && closestEntityScript != null)
 		{
-			if(closestEntityScript != null)
+			if (switchTargetRightAction.triggered)
 			{
-				CycleVATSTargetEntity();
+				CycleVATSTargetEntity(1);
+			}
+			else if(switchTargetLeftAction.triggered)
+			{
+				CycleVATSTargetEntity(-1);
 			}
 		}
 	}
@@ -197,11 +203,15 @@ public class VATSController : MonoBehaviour
 		}
 	}
 
-	private void CycleVATSTargetEntity()
+	private void CycleVATSTargetEntity(int direction)
 	{
 		int currentIndex = detectedEntityCollidersList.IndexOf(closestEntityScript);
-		int nextIndex = (currentIndex + 1) % detectedEntityCollidersList.Count;
+		int nextIndex = (currentIndex + direction) % detectedEntityCollidersList.Count;
 
+		if(nextIndex < 0)
+		{
+			nextIndex = detectedEntityCollidersList.Count - 1;
+		}
 
 		closestEntityScript.HideHealthBar();
 		closestEntityScript.CleanUpVatsUi();
