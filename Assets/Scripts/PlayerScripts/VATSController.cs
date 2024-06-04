@@ -208,6 +208,11 @@ public class VATSController : MonoBehaviour
 		int currentIndex = detectedEntityCollidersList.IndexOf(closestEntityScript);
 		int nextIndex = (currentIndex + direction) % detectedEntityCollidersList.Count;
 
+		if(nextIndex == currentIndex ) 
+		{
+			return;
+		}
+
 		if(nextIndex < 0)
 		{
 			nextIndex = detectedEntityCollidersList.Count - 1;
